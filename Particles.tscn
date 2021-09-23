@@ -1,0 +1,778 @@
+[gd_scene load_steps=70 format=2]
+
+[ext_resource path="res://Assets/Images/20x20_gray.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/extra-oll/neon-diamond-extra-oll-15.png" type="Texture" id=2]
+[ext_resource path="res://ParticlesMain.cs" type="Script" id=3]
+[ext_resource path="res://Assets/Images/extra-oll/neon-diamond-extra-oll.png" type="Texture" id=4]
+[ext_resource path="res://Pixels.cs" type="Script" id=5]
+[ext_resource path="res://Assets/Images/extra-oll/neon-circle-extra-oll.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/extra-oll/neon-triangle-extra-oll-15.png" type="Texture" id=7]
+[ext_resource path="res://FPSLabel.cs" type="Script" id=8]
+[ext_resource path="res://Assets/Images/extra-oll/neon-heart-extra-oll.png" type="Texture" id=9]
+[ext_resource path="res://Nodes/Particles/heart_particlesmaterial.tres" type="Material" id=10]
+[ext_resource path="res://Assets/Images/extra-oll/neon-circle-extra-oll-15.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Images/extra-oll/neon-heart-extra-oll-15.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Images/extra-oll/neon-triangle-extra-oll.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Images/neon-diamond-gray-fill.png" type="Texture" id=14]
+[ext_resource path="res://WorldEnvironment.cs" type="Script" id=15]
+[ext_resource path="res://Assets/Images/neon-triangle-gray-filled.png" type="Texture" id=16]
+[ext_resource path="res://Colors.cs" type="Script" id=17]
+[ext_resource path="res://Assets/Images/neon-heart-gray-filled.png" type="Texture" id=18]
+[ext_resource path="res://Pixels2.cs" type="Script" id=19]
+[ext_resource path="res://Player.cs" type="Script" id=20]
+[ext_resource path="res://Assets/Images/20x20_rainbow.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Images/40/neon-line-gray-large.png" type="Texture" id=22]
+[ext_resource path="res://Bars.cs" type="Script" id=23]
+[ext_resource path="res://Assets/Images/neon-star-gray-filled.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Images/40/neon-star-white-OLL-40.png" type="Texture" id=25]
+[ext_resource path="res://Star.cs" type="Script" id=26]
+[ext_resource path="res://StarFilled.cs" type="Script" id=27]
+[ext_resource path="res://StarSpread.cs" type="Script" id=28]
+[ext_resource path="res://ShapeNode.cs" type="Script" id=29]
+[ext_resource path="res://Assets/Images/40/neon-circle-white-40.png" type="Texture" id=30]
+[ext_resource path="res://Assets/Images/neon-circle-gray-fill.png" type="Texture" id=31]
+[ext_resource path="res://BarsRight.cs" type="Script" id=32]
+[ext_resource path="res://Spiral.cs" type="Script" id=33]
+[ext_resource path="res://Assets/Images/extra-oll/neon-star-extra-oll.png" type="Texture" id=34]
+[ext_resource path="res://Assets/Images/extra-oll/neon-star-extra-oll-15.png" type="Texture" id=35]
+[ext_resource path="res://Assets/Images/extra-oll/neon-shapes-deadmau5-oll.png" type="Texture" id=36]
+[ext_resource path="res://Trail.cs" type="Script" id=37]
+[ext_resource path="res://Assets/Images/Trails/20x20_cyan.png" type="Texture" id=38]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=3]
+blend_mode = 1
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 180.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+
+[sub_resource type="CanvasItemMaterial" id=5]
+blend_mode = 1
+
+[sub_resource type="Curve" id=6]
+bake_resolution = 10
+_data = [ Vector2( 0, 0 ), 0.0, 8.56511, 0, 0, Vector2( 0.246127, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CanvasItemMaterial" id=7]
+blend_mode = 1
+
+[sub_resource type="Curve" id=8]
+bake_resolution = 10
+_data = [ Vector2( 0, 0 ), 0.0, 6.1256, 0, 0, Vector2( 0.249561, 1 ), 8.47876e-07, 8.47876e-07, 0, 0, Vector2( 0.989455, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CanvasItemMaterial" id=9]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=10]
+next_pass = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+resource_local_to_scene = true
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1000.0
+orbit_velocity = 0.1
+orbit_velocity_random = 0.0
+color = Color( 1, 0.105882, 1.05882, 1 )
+
+[sub_resource type="CanvasItemMaterial" id=12]
+
+[sub_resource type="Shader" id=13]
+code = "shader_type particles;
+uniform vec3 direction;
+uniform float spread;
+uniform float flatness;
+uniform float initial_linear_velocity;
+uniform float initial_angle;
+uniform float angular_velocity;
+uniform float orbit_velocity;
+uniform float linear_accel;
+uniform float radial_accel;
+uniform float tangent_accel;
+uniform float damping;
+uniform float scale;
+uniform float hue_variation;
+uniform float anim_speed;
+uniform float anim_offset;
+uniform float initial_linear_velocity_random;
+uniform float initial_angle_random;
+uniform float angular_velocity_random;
+uniform float orbit_velocity_random;
+uniform float linear_accel_random;
+uniform float radial_accel_random;
+uniform float tangent_accel_random;
+uniform float damping_random;
+uniform float scale_random;
+uniform float hue_variation_random;
+uniform float anim_speed_random;
+uniform float anim_offset_random;
+uniform float lifetime_randomness;
+uniform vec4 color_value : hint_color;
+uniform int trail_divisor;
+uniform vec3 gravity;
+uniform int totalParticles;
+
+
+float rand_from_seed(inout uint seed) {
+	int k;
+	int s = int(seed);
+	if (s == 0)
+	s = 305420679;
+	k = s / 127773;
+	s = 16807 * (s - k * 127773) - 2836 * k;
+	if (s < 0)
+		s += 2147483647;
+	seed = uint(s);
+	return float(seed % uint(65536)) / 65535.0;
+}
+
+float rand_from_seed_m1_p1(inout uint seed) {
+	return rand_from_seed(seed) * 2.0 - 1.0;
+}
+
+uint hash(uint x) {
+	x = ((x >> uint(16)) ^ x) * uint(73244475);
+	x = ((x >> uint(16)) ^ x) * uint(73244475);
+	x = (x >> uint(16)) ^ x;
+	return x;
+}
+
+void vertex() {
+	uint base_number = NUMBER / uint(trail_divisor);
+	uint alt_seed = hash(base_number + uint(1) + RANDOM_SEED);
+	float angle_rand = rand_from_seed(alt_seed);
+	float scale_rand = rand_from_seed(alt_seed);
+	float hue_rot_rand = rand_from_seed(alt_seed);
+	float anim_offset_rand = rand_from_seed(alt_seed);
+	float pi = 3.14159;
+	float degree_to_rad = 360.0f /float(totalParticles) * pi / 180.0;
+
+	bool restart = false;
+	float tv = 0.0;
+	if (CUSTOM.y > CUSTOM.w) {
+		restart = true;
+		tv = 1.0;
+	}
+
+	if (RESTART || restart) {
+		float tex_linear_velocity = 0.0;
+		float tex_angle = 0.0;
+		float tex_anim_offset = 0.0;
+		float spread_rad = spread * degree_to_rad;
+		float angle1_rad = float(INDEX) * degree_to_rad; //rand_from_seed_m1_p1(alt_seed) * spread_rad;
+		angle1_rad += direction.x != 0.0 ? atan(direction.y, direction.x) : sign(direction.y) * (pi / 2.0);
+		vec3 rot = vec3(cos(angle1_rad), sin(angle1_rad), 0.0);
+		VELOCITY = rot * initial_linear_velocity * mix(1.0, rand_from_seed(alt_seed), initial_linear_velocity_random);
+		float base_angle = (initial_angle + tex_angle) * mix(1.0, angle_rand, initial_angle_random);
+		CUSTOM.x = base_angle * degree_to_rad;
+		CUSTOM.y = 0.0;
+		CUSTOM.w = (1.0 - lifetime_randomness * rand_from_seed(alt_seed));
+		CUSTOM.z = (anim_offset + tex_anim_offset) * mix(1.0, anim_offset_rand, anim_offset_random);
+		VELOCITY = (EMISSION_TRANSFORM * vec4(VELOCITY, 0.0)).xyz;
+		TRANSFORM = EMISSION_TRANSFORM * TRANSFORM;
+		VELOCITY.z = 0.0;
+		TRANSFORM[3].z = 0.0;
+	} else {
+		CUSTOM.y += DELTA / LIFETIME;
+		tv = CUSTOM.y / CUSTOM.w;
+		float tex_linear_velocity = 0.0;
+		float tex_orbit_velocity = 0.0;
+		float tex_angular_velocity = 0.0;
+		float tex_linear_accel = 0.0;
+		float tex_radial_accel = 0.0;
+		float tex_tangent_accel = 0.0;
+		float tex_damping = 0.0;
+		float tex_angle = 0.0;
+		float tex_anim_speed = 0.0;
+		float tex_anim_offset = 0.0;
+		vec3 force = gravity;
+		vec3 pos = TRANSFORM[3].xyz;
+		pos.z = 0.0;
+		// apply linear acceleration
+		force += length(VELOCITY) > 0.0 ? normalize(VELOCITY) * (linear_accel + tex_linear_accel) * mix(1.0, rand_from_seed(alt_seed), linear_accel_random) : vec3(0.0);
+		// apply radial acceleration
+		vec3 org = EMISSION_TRANSFORM[3].xyz;
+		vec3 diff = pos - org;
+		force += length(diff) > 0.0 ? normalize(diff) * (radial_accel + tex_radial_accel) * mix(1.0, rand_from_seed(alt_seed), radial_accel_random) : vec3(0.0);
+		// apply tangential acceleration;
+		force += length(diff.yx) > 0.0 ? vec3(normalize(diff.yx * vec2(-1.0, 1.0)), 0.0) * ((tangent_accel + tex_tangent_accel) * mix(1.0, rand_from_seed(alt_seed), tangent_accel_random)) : vec3(0.0);
+		// apply attractor forces
+		VELOCITY += force * DELTA;
+		// orbit velocity
+		float orbit_amount = (orbit_velocity + tex_orbit_velocity) * mix(1.0, rand_from_seed(alt_seed), orbit_velocity_random);
+		if (orbit_amount != 0.0) {
+		     float ang = orbit_amount * DELTA * pi * 2.0;
+		     mat2 rot = mat2(vec2(cos(ang), -sin(ang)), vec2(sin(ang), cos(ang)));
+		     TRANSFORM[3].xy -= diff.xy;
+		     TRANSFORM[3].xy += rot * diff.xy;
+		}
+		if (damping + tex_damping > 0.0) {
+			float v = length(VELOCITY);
+			float damp = (damping + tex_damping) * mix(1.0, rand_from_seed(alt_seed), damping_random);
+			v -= damp * DELTA;
+			if (v < 0.0) {
+				VELOCITY = vec3(0.0);
+			} else {
+				VELOCITY = normalize(VELOCITY) * v;
+			}
+		}
+		float base_angle = (initial_angle + tex_angle) * mix(1.0, angle_rand, initial_angle_random);
+		base_angle += CUSTOM.y * LIFETIME * (angular_velocity + tex_angular_velocity) * mix(1.0, rand_from_seed(alt_seed) * 2.0 - 1.0, angular_velocity_random);
+		CUSTOM.x = base_angle * degree_to_rad;
+		CUSTOM.z = (anim_offset + tex_anim_offset) * mix(1.0, anim_offset_rand, anim_offset_random) + CUSTOM.y * (anim_speed + tex_anim_speed) * mix(1.0, rand_from_seed(alt_seed), anim_speed_random);
+	}
+	float tex_scale = 1.0;
+	float tex_hue_variation = 0.0;
+	float hue_rot_angle = (hue_variation + tex_hue_variation) * pi * 2.0 * mix(1.0, hue_rot_rand * 2.0 - 1.0, hue_variation_random);
+	float hue_rot_c = cos(hue_rot_angle);
+	float hue_rot_s = sin(hue_rot_angle);
+	mat4 hue_rot_mat = mat4(vec4(0.299, 0.587, 0.114, 0.0),
+			vec4(0.299, 0.587, 0.114, 0.0),
+			vec4(0.299, 0.587, 0.114, 0.0),
+			vec4(0.000, 0.000, 0.000, 1.0)) +
+		mat4(vec4(0.701, -0.587, -0.114, 0.0),
+			vec4(-0.299, 0.413, -0.114, 0.0),
+			vec4(-0.300, -0.588, 0.886, 0.0),
+			vec4(0.000, 0.000, 0.000, 0.0)) * hue_rot_c +
+		mat4(vec4(0.168, 0.330, -0.497, 0.0),
+			vec4(-0.328, 0.035,  0.292, 0.0),
+			vec4(1.250, -1.050, -0.203, 0.0),
+			vec4(0.000, 0.000, 0.000, 0.0)) * hue_rot_s;
+	COLOR = hue_rot_mat * color_value;
+
+	TRANSFORM[0] = vec4(cos(CUSTOM.x), -sin(CUSTOM.x), 0.0, 0.0);
+	TRANSFORM[1] = vec4(sin(CUSTOM.x), cos(CUSTOM.x), 0.0, 0.0);
+	TRANSFORM[2] = vec4(0.0, 0.0, 1.0, 0.0);
+	float base_scale = tex_scale * mix(scale, 1.0, scale_random * scale_rand);
+	if (base_scale < 0.000001) {
+		base_scale = 0.000001;
+	}
+	TRANSFORM[0].xyz *= base_scale;
+	TRANSFORM[1].xyz *= base_scale;
+	TRANSFORM[2].xyz *= base_scale;
+	VELOCITY.z = 0.0;
+	TRANSFORM[3].z = 0.0;
+	if (CUSTOM.y > CUSTOM.w) {		ACTIVE = false;
+	}
+}
+
+"
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = SubResource( 13 )
+shader_param/direction = Vector3( 0, -1, 0 )
+shader_param/spread = 180.0
+shader_param/flatness = 0.0
+shader_param/initial_linear_velocity = 1000.0
+shader_param/initial_angle = 0.0
+shader_param/angular_velocity = 0.0
+shader_param/orbit_velocity = 0.0
+shader_param/linear_accel = 0.0
+shader_param/radial_accel = 0.0
+shader_param/tangent_accel = 0.0
+shader_param/damping = 0.0
+shader_param/scale = 20.0
+shader_param/hue_variation = 0.0
+shader_param/anim_speed = 0.0
+shader_param/anim_offset = 0.0
+shader_param/initial_linear_velocity_random = 0.0
+shader_param/initial_angle_random = 0.0
+shader_param/angular_velocity_random = 0.0
+shader_param/orbit_velocity_random = 0.0
+shader_param/linear_accel_random = 0.0
+shader_param/radial_accel_random = 0.0
+shader_param/tangent_accel_random = 0.0
+shader_param/damping_random = 0.0
+shader_param/scale_random = 0.0
+shader_param/hue_variation_random = 0.0
+shader_param/anim_speed_random = 0.0
+shader_param/anim_offset_random = 0.0
+shader_param/lifetime_randomness = 0.0
+shader_param/color_value = Color( 0, 0, 10, 1 )
+shader_param/trail_divisor = 10
+shader_param/gravity = Vector3( 0, -1e-06, 0 )
+shader_param/totalParticles = 180
+
+[sub_resource type="CanvasItemMaterial" id=15]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=16]
+next_pass = SubResource( 15 )
+
+[sub_resource type="ParticlesMaterial" id=17]
+resource_local_to_scene = true
+trail_divisor = 3
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1000.0
+orbit_velocity = 0.3
+orbit_velocity_random = 0.0
+color = Color( 0.1, 1.1, 1.2, 1 )
+
+[sub_resource type="CanvasItemMaterial" id=18]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=19]
+next_pass = SubResource( 18 )
+
+[sub_resource type="CanvasItemMaterial" id=20]
+blend_mode = 1
+
+[sub_resource type="Curve" id=21]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.0720562, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=22]
+curve = SubResource( 21 )
+
+[sub_resource type="ParticlesMaterial" id=23]
+resource_local_to_scene = true
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 22 )
+
+[sub_resource type="CanvasItemMaterial" id=24]
+blend_mode = 1
+
+[sub_resource type="ParticlesMaterial" id=25]
+resource_local_to_scene = true
+render_priority = 10
+emission_shape = 2
+emission_box_extents = Vector3( 20000, 15000, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="CanvasItemMaterial" id=26]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=27]
+next_pass = SubResource( 26 )
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=28]
+next_pass = SubResource( 27 )
+
+[sub_resource type="ParticlesMaterial" id=29]
+resource_local_to_scene = true
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10000.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=30]
+resource_local_to_scene = true
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = -10000.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="Environment" id=31]
+resource_local_to_scene = true
+background_mode = 4
+background_energy = 16.0
+ssao_quality = 2
+ssao_edge_sharpness = 10.0
+glow_enabled = true
+glow_levels/1 = true
+glow_levels/2 = true
+glow_levels/4 = true
+glow_levels/6 = true
+glow_levels/7 = true
+glow_intensity = 1.0
+glow_strength = 0.6
+glow_blend_mode = 0
+glow_hdr_luminance_cap = 3.0
+glow_bicubic_upscale = true
+
+[node name="Particles" type="Node2D"]
+material = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+material = SubResource( 2 )
+margin_left = 204.5
+margin_top = 1.0
+margin_right = 352.5
+margin_bottom = 18.0
+rect_scale = Vector2( 5, 5 )
+input_pass_on_modal_close_click = false
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "60 fps | 1000 emitters"
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WORLD" type="Node2D" parent="."]
+
+[node name="Colors" type="Node" parent="WORLD"]
+script = ExtResource( 17 )
+ColorArray = PoolColorArray( 0.1, 2, 2, 1, 2, 2, 0.1, 1, 2, 0.1, 2, 1, 0.1, 3, 0.5, 1, 0.1, 0.5, 3, 1, 3, 0.5, 0.1, 1 )
+ColorCollection = [ [ Color( 2, 0.15, 0.15, 1 ), Color( 2, 2, 0.08, 1 ), Color( 0.5, 2, 0.04, 1 ), Color( 0.1, 2, 2, 1 ), Color( 0.1, 0.5, 2, 1 ), Color( 2, 0.1, 2, 1 ) ], [ Color( 0.1, 2, 2, 1 ), Color( 2, 0.1, 2, 1 ), Color( 2, 2, 0.1, 1 ) ], [ Color( 1, 2, 2, 1 ), Color( 2, 1, 2, 1 ), Color( 2, 1.5, 1, 1 ) ] ]
+ColorCooldown = 90.0
+
+[node name="PlayerScape" type="Node" parent="WORLD"]
+
+[node name="Player" type="Node2D" parent="WORLD/PlayerScape"]
+visible = false
+script = ExtResource( 20 )
+
+[node name="Sprite" type="Sprite" parent="WORLD/PlayerScape/Player"]
+visible = false
+modulate = Color( 2, 2, 2, 1 )
+material = SubResource( 3 )
+texture = ExtResource( 21 )
+
+[node name="Particles2D" type="Particles2D" parent="WORLD/PlayerScape/Player"]
+amount = 1
+lifetime = 10.0
+process_material = SubResource( 4 )
+texture = ExtResource( 38 )
+
+[node name="Trail" type="Node2D" parent="WORLD/PlayerScape/Player"]
+script = ExtResource( 37 )
+
+[node name="InnerTrail" type="Line2D" parent="WORLD/PlayerScape/Player/Trail"]
+material = SubResource( 5 )
+width = 7.0
+width_curve = SubResource( 6 )
+default_color = Color( 0.27451, 0.396078, 1, 1 )
+
+[node name="OuterTrail" type="Line2D" parent="WORLD/PlayerScape/Player/Trail"]
+material = SubResource( 7 )
+points = PoolVector2Array( 58.9536, -18.0083 )
+width = 15.0
+width_curve = SubResource( 8 )
+default_color = Color( 0.219608, 0.352941, 1, 0.803922 )
+
+[node name="Pixels" type="Node" parent="WORLD"]
+
+[node name="Pixels" type="Particles2D" parent="WORLD/Pixels"]
+visible = false
+material = SubResource( 10 )
+amount = 100
+explosiveness = 1.0
+process_material = SubResource( 11 )
+texture = ExtResource( 1 )
+script = ExtResource( 5 )
+cooldownMax = 10.0
+
+[node name="Pixels2" type="Particles2D" parent="WORLD/Pixels"]
+visible = false
+material = SubResource( 12 )
+amount = 180
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource( 14 )
+script = ExtResource( 19 )
+cooldownMax = 20.0
+rotationAnglePerSec = 36
+
+[node name="Spiral" type="Particles2D" parent="WORLD/Pixels"]
+visible = false
+material = SubResource( 16 )
+amount = 90
+lifetime = 1.5
+explosiveness = 0.5
+process_material = SubResource( 17 )
+texture = ExtResource( 1 )
+script = ExtResource( 33 )
+cooldownMax = 1.0
+
+[node name="Diamond" type="Node" parent="WORLD"]
+script = ExtResource( 29 )
+KeyBind = "DIAMOND"
+CooldownMax = 100
+MainTexture = ExtResource( 2 )
+FillTexture = ExtResource( 14 )
+SpreadTexture = ExtResource( 4 )
+
+[node name="Main" type="Particles2D" parent="WORLD/Diamond"]
+visible = false
+material = SubResource( 19 )
+scale = Vector2( 0.15, 0.15 )
+amount = 1
+lifetime = 2.0
+explosiveness = 0.95
+process_material = ExtResource( 10 )
+texture = ExtResource( 25 )
+script = ExtResource( 26 )
+
+[node name="Filled" type="Particles2D" parent="WORLD/Diamond"]
+visible = false
+material = SubResource( 20 )
+scale = Vector2( 0.05, 0.05 )
+amount = 1
+process_material = SubResource( 23 )
+texture = ExtResource( 24 )
+script = ExtResource( 27 )
+
+[node name="Spread" type="Particles2D" parent="WORLD/Diamond"]
+visible = false
+modulate = Color( 1, 1, 1, 0.501961 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+material = SubResource( 24 )
+scale = Vector2( 0.03, 0.03 )
+amount = 75
+one_shot = true
+process_material = SubResource( 25 )
+texture = ExtResource( 25 )
+script = ExtResource( 28 )
+
+[node name="Triangle" type="Node" parent="WORLD"]
+script = ExtResource( 29 )
+KeyBind = "TRIANGLE"
+CooldownMax = 100
+MainTexture = ExtResource( 7 )
+FillTexture = ExtResource( 16 )
+SpreadTexture = ExtResource( 13 )
+
+[node name="Main" type="Particles2D" parent="WORLD/Triangle"]
+visible = false
+material = SubResource( 19 )
+scale = Vector2( 0.18, 0.18 )
+amount = 1
+lifetime = 2.0
+explosiveness = 0.95
+process_material = ExtResource( 10 )
+texture = ExtResource( 25 )
+script = ExtResource( 26 )
+
+[node name="Filled" type="Particles2D" parent="WORLD/Triangle"]
+visible = false
+material = SubResource( 20 )
+scale = Vector2( 0.05, 0.05 )
+amount = 1
+process_material = SubResource( 23 )
+texture = ExtResource( 24 )
+script = ExtResource( 27 )
+
+[node name="Spread" type="Particles2D" parent="WORLD/Triangle"]
+visible = false
+modulate = Color( 1, 1, 1, 0.501961 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+material = SubResource( 24 )
+scale = Vector2( 0.03, 0.03 )
+amount = 75
+one_shot = true
+process_material = SubResource( 25 )
+texture = ExtResource( 25 )
+script = ExtResource( 28 )
+
+[node name="Heart" type="Node" parent="WORLD"]
+script = ExtResource( 29 )
+KeyBind = "HEART"
+CooldownMax = 100
+MainTexture = ExtResource( 12 )
+FillTexture = ExtResource( 18 )
+SpreadTexture = ExtResource( 9 )
+
+[node name="Main" type="Particles2D" parent="WORLD/Heart"]
+visible = false
+material = SubResource( 19 )
+scale = Vector2( 0.15, 0.15 )
+amount = 1
+lifetime = 2.0
+explosiveness = 0.95
+process_material = ExtResource( 10 )
+texture = ExtResource( 25 )
+script = ExtResource( 26 )
+
+[node name="Filled" type="Particles2D" parent="WORLD/Heart"]
+visible = false
+material = SubResource( 20 )
+scale = Vector2( 0.05, 0.05 )
+amount = 1
+process_material = SubResource( 23 )
+texture = ExtResource( 24 )
+script = ExtResource( 27 )
+
+[node name="Spread" type="Particles2D" parent="WORLD/Heart"]
+visible = false
+modulate = Color( 1, 1, 1, 0.501961 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+material = SubResource( 24 )
+scale = Vector2( 0.03, 0.03 )
+amount = 75
+one_shot = true
+process_material = SubResource( 25 )
+texture = ExtResource( 25 )
+script = ExtResource( 28 )
+
+[node name="Star" type="Node" parent="WORLD"]
+script = ExtResource( 29 )
+KeyBind = "STAR"
+CooldownMax = 100
+MainTexture = ExtResource( 35 )
+FillTexture = ExtResource( 24 )
+SpreadTexture = ExtResource( 34 )
+
+[node name="Star" type="Particles2D" parent="WORLD/Star"]
+visible = false
+material = SubResource( 19 )
+scale = Vector2( 0.18, 0.18 )
+amount = 1
+lifetime = 2.0
+explosiveness = 0.95
+process_material = ExtResource( 10 )
+texture = ExtResource( 25 )
+script = ExtResource( 26 )
+
+[node name="StarFilled" type="Particles2D" parent="WORLD/Star"]
+visible = false
+material = SubResource( 20 )
+scale = Vector2( 0.05, 0.05 )
+amount = 1
+process_material = SubResource( 23 )
+texture = ExtResource( 24 )
+script = ExtResource( 27 )
+
+[node name="StarSpread" type="Particles2D" parent="WORLD/Star"]
+visible = false
+modulate = Color( 1, 1, 1, 0.501961 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+material = SubResource( 24 )
+scale = Vector2( 0.03, 0.03 )
+amount = 75
+one_shot = true
+process_material = SubResource( 25 )
+texture = ExtResource( 25 )
+script = ExtResource( 28 )
+
+[node name="Circle" type="Node" parent="WORLD"]
+script = ExtResource( 29 )
+KeyBind = "CIRCLE"
+CooldownMax = 100
+MainTexture = ExtResource( 11 )
+FillTexture = ExtResource( 31 )
+SpreadTexture = ExtResource( 6 )
+
+[node name="Circle" type="Particles2D" parent="WORLD/Circle"]
+visible = false
+material = SubResource( 19 )
+scale = Vector2( 0.15, 0.15 )
+amount = 3
+lifetime = 2.0
+explosiveness = 0.95
+process_material = ExtResource( 10 )
+texture = ExtResource( 30 )
+script = ExtResource( 26 )
+
+[node name="CircleFilled" type="Particles2D" parent="WORLD/Circle"]
+visible = false
+material = SubResource( 20 )
+scale = Vector2( 0.05, 0.05 )
+amount = 1
+process_material = SubResource( 23 )
+texture = ExtResource( 31 )
+script = ExtResource( 27 )
+
+[node name="CircleSpread" type="Particles2D" parent="WORLD/Circle"]
+visible = false
+modulate = Color( 1, 1, 1, 0.501961 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+material = SubResource( 24 )
+scale = Vector2( 0.03, 0.03 )
+amount = 75
+one_shot = true
+process_material = SubResource( 25 )
+texture = ExtResource( 30 )
+script = ExtResource( 28 )
+
+[node name="DeadMau5" type="Node" parent="WORLD"]
+script = ExtResource( 29 )
+KeyBind = "DEADMAU5"
+CooldownMax = 100
+MainTexture = ExtResource( 36 )
+FillTexture = ExtResource( 36 )
+SpreadTexture = ExtResource( 36 )
+ScaleBy = 2.0
+
+[node name="Main" type="Particles2D" parent="WORLD/DeadMau5"]
+visible = false
+material = SubResource( 19 )
+scale = Vector2( 0.15, 0.15 )
+amount = 3
+lifetime = 2.0
+explosiveness = 0.95
+process_material = ExtResource( 10 )
+texture = ExtResource( 30 )
+script = ExtResource( 26 )
+
+[node name="Filled" type="Particles2D" parent="WORLD/DeadMau5"]
+visible = false
+material = SubResource( 20 )
+scale = Vector2( 0.05, 0.05 )
+amount = 1
+process_material = SubResource( 23 )
+texture = ExtResource( 31 )
+script = ExtResource( 27 )
+
+[node name="Spread" type="Particles2D" parent="WORLD/DeadMau5"]
+visible = false
+modulate = Color( 1, 1, 1, 0.501961 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+material = SubResource( 24 )
+scale = Vector2( 0.03, 0.03 )
+amount = 75
+one_shot = true
+process_material = SubResource( 25 )
+texture = ExtResource( 30 )
+script = ExtResource( 28 )
+
+[node name="Bars" type="Node" parent="WORLD"]
+
+[node name="BarsLeft" type="Particles2D" parent="WORLD/Bars"]
+visible = false
+material = SubResource( 28 )
+scale = Vector2( 0.13, 1 )
+amount = 2
+lifetime = 2.0
+explosiveness = 0.99
+process_material = SubResource( 29 )
+texture = ExtResource( 22 )
+script = ExtResource( 23 )
+cooldownMax = 30.0
+
+[node name="BarsRight" type="Particles2D" parent="WORLD/Bars"]
+visible = false
+material = SubResource( 28 )
+scale = Vector2( 0.13, 1 )
+amount = 2
+lifetime = 2.0
+explosiveness = 0.99
+process_material = SubResource( 30 )
+texture = ExtResource( 22 )
+script = ExtResource( 32 )
+cooldownMax = 30.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 31 )
+script = ExtResource( 15 )
