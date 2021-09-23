@@ -254,7 +254,7 @@ public class Player : Node2D
 		
 		float RotationRadians = (float)((Math.PI / (180 * ChildrenPerOrbit)) * 360.0f);
 		float CurrentRotation = ((Player)GetParent().GetChild(0)).currentRotation;
-		float CurrentDistnace = pos.DistanceTo(ScreenCenter);
+		float CurrentDistnace = pos.DistanceTo(ScreenCenter);  
 		
 		float distRatio = (float)Orbit / (float)Orbits;
 		float Distance =  (CurrentDistnace * distRatio);
